@@ -16,13 +16,14 @@ class NeDownload{
     if (!fs.existsSync(this.outputDir)){
       fs.mkdirSync(this.outputDir);
     }
-    let promises = [];
-    this.DATA_LIST.forEach(ne=>{
+    let shapefiles = [];
+    for (let i = 0; i<this.DATA_LIST.length; i++){
+      let ne = this.DATA_LIST[i];
       let f =`${ne[2]}.zip`
       let url = `${this.BASE_URL}/${ne[0]}/${ne[1]}/${f}`;
-      promises.push(this.download_shp(url, this.outputDir));
-    })
-    const shapefiles = await Promise.all(promises);
+      let shp = await this.download_shp(url, this.outputDir);
+      shapefiles.push(shp);
+    }
     return shapefiles;
   }
 

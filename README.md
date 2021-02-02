@@ -10,22 +10,78 @@ npm i
 
 ## Usage
 
-### Target data
+### Configuration
 
 `define.json`
-```
+
+<details>
+
+```json
 [
   ["110m", "cultural", "ne_110m_admin_0_countries_lakes"],
+  ["110m", "cultural", "ne_110m_admin_0_tiny_countries"],
   ["110m", "cultural", "ne_110m_admin_0_boundary_lines_land"],
+  ["110m", "cultural", "ne_110m_admin_1_states_provinces_lakes"],
+  ["110m", "cultural", "ne_110m_populated_places"],
   ["110m", "physical", "ne_110m_coastline"],
+  ["110m", "physical", "ne_110m_land"],
   ["110m", "physical", "ne_110m_ocean"],
-  ["110m", "physical", "ne_110m_land"]
+  ["110m", "physical", "ne_110m_rivers_lake_centerlines"],
+  ["110m", "physical", "ne_110m_lakes"],
+  ["110m", "physical", "ne_110m_geography_regions_polys"],
+  ["110m", "physical", "ne_110m_geography_regions_points"],
+  ["110m", "physical", "ne_110m_geography_regions_elevation_points"],
+  ["110m", "physical", "ne_110m_geography_marine_polys"],
+  ["110m", "physical", "ne_110m_glaciated_areas"],
+  ["50m", "physical", "ne_50m_coastline"],
+  ["50m", "physical", "ne_50m_land"],
+  ["50m", "physical", "ne_50m_ocean"],
+  ["50m", "physical", "ne_50m_rivers_lake_centerlines"],
+  ["50m", "physical", "ne_50m_lakes"],
+  ["50m", "physical", "ne_50m_lakes_historic"],
+  ["50m", "physical", "ne_50m_geography_regions_polys"],
+  ["50m", "physical", "ne_50m_geography_regions_points"],
+  ["50m", "physical", "ne_50m_geography_regions_elevation_points"],
+  ["50m", "physical", "ne_50m_geography_marine_polys"],
+  ["50m", "physical", "ne_50m_playas"],
+  ["50m", "physical", "ne_50m_glaciated_areas"],
+  ["50m", "cultural", "ne_50m_admin_0_countries_lakes"],
+  ["50m", "cultural", "ne_50m_admin_1_states_provinces_lakes"],
+  ["50m", "cultural", "ne_50m_populated_places"],
+  ["50m", "cultural", "ne_50m_airports"],
+  ["50m", "cultural", "ne_50m_ports"],
+  ["50m", "cultural", "ne_50m_urban_areas"],
+  ["10m", "physical", "ne_10m_coastline"],
+  ["10m", "physical", "ne_10m_land"],
+  ["10m", "physical", "ne_10m_minor_islands"],
+  ["10m", "physical", "ne_10m_minor_islands_coastline"],
+  ["10m", "physical", "ne_10m_reefs"],
+  ["10m", "physical", "ne_10m_ocean"],
+  ["10m", "physical", "ne_10m_rivers_lake_centerlines"],
+  ["10m", "physical", "ne_10m_lakes"],
+  ["10m", "physical", "ne_10m_lakes_historic"],
+  ["10m", "physical", "ne_10m_lakes_pluvial"],
+  ["10m", "physical", "ne_10m_geography_regions_polys"],
+  ["10m", "physical", "ne_10m_geography_regions_points"],
+  ["10m", "physical", "ne_10m_geography_regions_elevation_points"],
+  ["10m", "physical", "ne_10m_geography_marine_polys"],
+  ["10m", "physical", "ne_10m_playas"],
+  ["10m", "physical", "ne_10m_glaciated_areas"],
+  ["10m", "cultural", "ne_10m_admin_0_countries_lakes"],
+  ["10m", "cultural", "ne_10m_admin_1_states_provinces_lakes"],
+  ["10m", "cultural", "ne_10m_airports"],
+  ["10m", "cultural", "ne_10m_ports"],
+  ["10m", "cultural", "ne_10m_urban_areas"]
 ]
 ```
 
+</details>
+
 Please specify which data from Natural Earth you need.
 
-### Download Shapefile from Natural Earth
+You can delete unnecessary data from `define_all.json`.
+
+### How to generate
 
 ```bash
 $ node src/index.js -h
@@ -41,24 +97,28 @@ Commands:
   help [command]                  display help for command
 ```
 
+#### Download Shapefile from Natural Earth
+
 ```bash
 node src/index.js download $(pwd)/data $(pwd)/define.json
 ```
 
-### Convert Shapefile to GeoJSON
+#### Convert to GeoJSON
 
-```
-node src/index.js convert $(pwd)/data/ne_110m_ocean/ne_110m_ocean.shp
-```
-
-### Pipeline
-
-- Convert to GeoJSON
-```
+```bash
 node src/index.js download $(pwd)/data $(pwd)/define.json | node src/index.js convert > test.geojson
 ```
 
-- Convert to mbtiles through tippecanoe
+#### Convert to mbtiles through tippecanoe
 ```
 node src/index.js download $(pwd)/data $(pwd)/define.json | node src/index.js convert | tippecanoe --no-feature-limit --no-tile-size-limit --force --simplification=2 --maximum-zoom=5 --base-zoom=5 --hilbert --output=tiles.mbtiles
 ```
+
+You can use this module together with `unvt/naru`.
+
+## License
+
+This source code is under `MIT license`.
+
+---
+`Copyright (c) 2021 Jin IGARASHI`

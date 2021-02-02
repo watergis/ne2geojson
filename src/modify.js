@@ -41,27 +41,31 @@ const setMinMaxZoom = (f) =>{
 }
 
 const ocean = (f)=>{
-  if (![
+  if ([
     'ne_110m_ocean',
     'ne_50m_ocean',
     'ne_10m_ocean'
   ].includes(f.file)){
-    return null
+    f.tippecanoe.layer = 'ocean'
+  }else{
+    return null;
   }
-  f.tippecanoe.layer = 'ocean'
+  
   return f;
 }
 
 const coastline = (f)=>{
-  if (![
+  if ([
     'ne_110m_coastline',
     'ne_50m_coastline',
     'ne_10m_coastline',
     'ne_10m_minor_islands_coastline'
   ].includes(f.file)){
-    return null
+    f.tippecanoe.layer = 'coastline'
+  }else{
+    return null;
   }
-  f.tippecanoe.layer = 'coastline'
+  
   return f;
 }
 
@@ -89,15 +93,22 @@ const administrative = (f)=>{
 }
 
 const land = (f)=>{
-  if (f.properties.featurecla !== 'Land'){
-    return null;
+  if ([
+    'ne_110m_land',
+    'ne_50m_land',
+    'ne_10m_land',
+    'ne_10m_minor_islands'
+  ].includes(f.file)){
+    f.tippecanoe.layer = 'land'
+  }else{
+    return null
   }
-  f.tippecanoe.layer = 'land'
+  
   return f;
 }
 
 const boundary = (f)=>{
-  if (![
+  if ([
     'ne_110m_admin_0_boundary_lines_land',
     'ne_50m_admin_0_boundary_lines_land',
     'ne_10m_admin_0_boundary_lines_land',
@@ -105,14 +116,16 @@ const boundary = (f)=>{
     'ne_50m_admin_1_states_provinces_lines',
     'ne_10m_admin_1_states_provinces_lines'
   ].includes(f.file)){
+    f.tippecanoe.layer = 'boundary'
+  }else{
     return null
   }
-  f.tippecanoe.layer = 'boundary'
+  
   return f
 }
 
 const water = (f)=>{
-  if (![
+  if ([
     'ne_110m_rivers_lake_centerlines',
     'ne_110m_lakes',
     'ne_50m_rivers_lake_centerlines',
@@ -123,75 +136,86 @@ const water = (f)=>{
     'ne_10m_lakes_historic',
     'ne_10m_lakes_pluvial',
   ].includes(f.file)){
+    f.tippecanoe.layer = 'water'
+  }else{
     return null
   }
-  f.tippecanoe.layer = 'water'
   return f
 }
 
 const populated_area = ()=>{
-  if (![
+  if ([
     'ne_50m_populated_places',
     'ne_50m_populated_places_simple',
   ].includes(f.file)){
+    f.tippecanoe.layer = 'populated_area'
+  }else{
     return null
   }
-  f.tippecanoe.layer = 'populated_area'
+  
   return f
 }
 
 const airports = ()=>{
-  if (![
+  if (f.geometry.type !== 'Point') return null
+  if ([
     'ne_50m_airports',
     'ne_10m_airports',
   ].includes(f.file)){
+    f.tippecanoe.layer = 'airports'
+  }else{
     return null
   }
-  f.tippecanoe.layer = 'airports'
+  
   return f
 }
 
 const ports = ()=>{
-  if (![
+  if (f.geometry.type !== 'Point') return null
+  if ([
     'ne_50m_ports',
     'ne_10m_ports',
   ].includes(f.file)){
+    f.tippecanoe.layer = 'ports'
+  }else{
     return null
   }
-  f.tippecanoe.layer = 'ports'
   return f
 }
 
 const urban_area = ()=>{
-  if (![
+  if ([
     'ne_50m_urban_areas',
     'ne_10m_urban_areas',
   ].includes(f.file)){
+    f.tippecanoe.layer = 'urban_area'
+  }else{
     return null
   }
-  f.tippecanoe.layer = 'urban_area'
   return f
 }
 
 const playas = ()=>{
-  if (![
+  if ([
     'ne_50m_playas',
     'ne_10m_playas',
   ].includes(f.file)){
+    f.tippecanoe.layer = 'playas'
+  }else{
     return null
   }
-  f.tippecanoe.layer = 'playas'
   return f
 }
 
 const glaciated_areas = ()=>{
-  if (![
+  if ([
     'ne_110m_glaciated_areas',
     'ne_50m_glaciated_areas',
     'ne_10m_glaciated_areas'
   ].includes(f.file)){
+    f.tippecanoe.layer = 'glaciated_areas'
+  }else{
     return null
   }
-  f.tippecanoe.layer = 'glaciated_areas'
   return f
 }

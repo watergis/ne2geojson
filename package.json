@@ -4,8 +4,7 @@
   "description": "This is a simple module to download shapefile from Natural Earth and convert them to GeoJSON in order to use for UNVT.",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "download": "node src/index.js download"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jin IGARASHI",
   "license": "MIT",

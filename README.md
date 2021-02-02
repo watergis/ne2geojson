@@ -28,20 +28,18 @@ Please specify which data from Natural Earth you need.
 ### Download Shapefile from Natural Earth
 
 ```bash
-$ node src/index.js download -h
-Usage: index download [options] [output] [definition]
-
-It is a CLI tool which can download shapefile from Natural Earth
+$ node src/index.js -h
+Usage: index [options] [command]
 
 Options:
-  -h, --help  display help for command
-```
+  -V, --version                   output the version number
+  -h, --help                      display help for command
 
-```bash
-npm run download -- $(pwd)/data $(pwd)/define.json
+Commands:
+  download [output] [definition]  It is a CLI tool which can download shapefile from Natural Earth
+  convert                         It is a CLI tool which can convert Shapefile to GeoJSON
+  help [command]                  display help for command
 ```
-
-or
 
 ```bash
 node src/index.js download $(pwd)/data $(pwd)/define.json

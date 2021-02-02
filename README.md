@@ -111,7 +111,7 @@ node src/index.js download $(pwd)/data $(pwd)/define.json | node src/index.js co
 
 #### Convert to mbtiles through tippecanoe
 ```
-node src/index.js download $(pwd)/data $(pwd)/define.json | node src/index.js convert | tippecanoe --no-feature-limit --no-tile-size-limit --force --simplification=2 --maximum-zoom=5 --base-zoom=5 --hilbert --output=tiles.mbtiles
+node src/index.js download $(pwd)/data $(pwd)/define.json | node src/index.js convert | tippecanoe --no-feature-limit --no-tile-size-limit --force --simplification=2 --maximum-zoom=7 --base-zoom=7 --hilbert --output=tiles.mbtiles
 ```
 
 You can use this module together with `unvt/naru`.

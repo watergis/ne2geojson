@@ -6,42 +6,41 @@ module.exports = (f) => {
   f = setMinMaxZoom(f);
   f.tippecanoe.layer = f.file
 
-    // name
-    if (
-      f.properties.hasOwnProperty('NAME_EN') ||
-      f.properties.hasOwnProperty('NAME_FR') ||
-      f.properties.hasOwnProperty('NAME_ES') ||
-      f.properties.hasOwnProperty('NAME_PT') ||
-      f.properties.hasOwnProperty('NAME_AR') ||
-      f.properties.hasOwnProperty('NAME')
-    ) {
-      let name = ''
-      if (f.properties['NAME_EN']) {
-        name = f.properties['NAME_EN']
-      } else if (f.properties['NAME_FR']) {
-        name = f.properties['NAME_FR']
-      } else if (f.properties['NAME_ES']) {
-        name = f.properties['NAME_ES']
-      } else if (f.properties['NAME_PT']) {
-        name = f.properties['NAME_PT']
-      } else if (f.properties['NAME_AR']) {
-        name = f.properties['NAME_AR']
-      } else if (f.properties['NAME_JA']) {
-        name = f.properties['NAME_JA']
-      } else if (f.properties['NAME_KO']) {
-        name = f.properties['NAME_KO']
-      } else if (f.properties['NAME_ZH']) {
-        name = f.properties['NAME_ZH']
-      } 
-      for (const key in f.properties) {
-        if (key.match(/NAME_/)) {
+  // property name to be lowercase
+  let props = {};
+  Object.keys(f.properties).forEach(k=>{
+    props[k.toLowerCase()] = f.properties[k];
+  })
+  f.properties = props;
+
+  // name
+  if (
+    f.properties.hasOwnProperty('name_en') ||
+    f.properties.hasOwnProperty('name_fr') ||
+    f.properties.hasOwnProperty('name_es') ||
+    f.properties.hasOwnProperty('name_pt') ||
+    f.properties.hasOwnProperty('name_ar') ||
+    f.properties.hasOwnProperty('name_ja') ||
+    f.properties.hasOwnProperty('name_ko') ||
+    f.properties.hasOwnProperty('name_zh')
+  ) {
+    for (const key in f.properties) {
+      if (key.match(/name_/)) {
+        if (![
+          'name_en',
+          'name_fr',
+          'name_es',
+          'name_pt',
+          'name_ar',
+          'name_ja',
+          'name_ko',
+          'name_zh'
+        ].includes(key)){
           delete f.properties[key]
         }
       }
-      if (name){
-        f.properties['NAME'] = name
-      }
     }
+  }
 
   f = ocean(f) ||
     coastline(f) ||
@@ -59,21 +58,34 @@ module.exports = (f) => {
 }
 
 const setMinMaxZoom = (f) =>{
-  if (f.file.indexOf('110m') > 0){
-    f.tippecanoe = {
-      minzoom: 1,
-      maxzoom: 2
+  let minzoom;
+  if (f.properties['min_zoom']){
+    minzoom = f.properties['min_zoom'];
+  }
+  minzoom = Math.ceil(minzoom);
+  let maxzoom = 5;
+   if (f.file.indexOf('110m') > 0){
+    if (!minzoom){
+      minzoom = 0
     }
+    maxzoom = 2
   }else if (f.file.indexOf('50m') > 0){
-    f.tippecanoe = {
-      minzoom: 3,
-      maxzoom: 4
+    if (!minzoom){
+      minzoom = 3
     }
+    maxzoom = 4
   }else if (f.file.indexOf('10m') > 0){
-    f.tippecanoe = {
-      minzoom: 5,
-      maxzoom: 5
+    if (!minzoom){
+      minzoom = 5
     }
+    maxzoom = 10
+  }
+  if (minzoom > maxzoom){
+    minzoom = maxzoom;
+  }
+  f.tippecanoe = {
+    minzoom: minzoom,
+    maxzoom: maxzoom
   }
   return f;
 }

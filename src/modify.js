@@ -5,6 +5,44 @@ module.exports = (f) => {
 
   f = setMinMaxZoom(f);
   f.tippecanoe.layer = f.file
+
+    // name
+    if (
+      f.properties.hasOwnProperty('NAME_EN') ||
+      f.properties.hasOwnProperty('NAME_FR') ||
+      f.properties.hasOwnProperty('NAME_ES') ||
+      f.properties.hasOwnProperty('NAME_PT') ||
+      f.properties.hasOwnProperty('NAME_AR') ||
+      f.properties.hasOwnProperty('NAME')
+    ) {
+      let name = ''
+      if (f.properties['NAME_EN']) {
+        name = f.properties['NAME_EN']
+      } else if (f.properties['NAME_FR']) {
+        name = f.properties['NAME_FR']
+      } else if (f.properties['NAME_ES']) {
+        name = f.properties['NAME_ES']
+      } else if (f.properties['NAME_PT']) {
+        name = f.properties['NAME_PT']
+      } else if (f.properties['NAME_AR']) {
+        name = f.properties['NAME_AR']
+      } else if (f.properties['NAME_JA']) {
+        name = f.properties['NAME_JA']
+      } else if (f.properties['NAME_KO']) {
+        name = f.properties['NAME_KO']
+      } else if (f.properties['NAME_ZH']) {
+        name = f.properties['NAME_ZH']
+      } 
+      for (const key in f.properties) {
+        if (key.match(/NAME_/)) {
+          delete f.properties[key]
+        }
+      }
+      if (name){
+        f.properties['NAME'] = name
+      }
+    }
+
   f = ocean(f) ||
     coastline(f) ||
     administrative(f) ||

@@ -22,6 +22,7 @@ class Shp2GeoJSON{
                         features.push(_f);
                     }
                 })
+                // console.log(`\x1e${JSON.stringify(features)}\n`)
                 resolve(features);
             })
             .catch(err => reject);

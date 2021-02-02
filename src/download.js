@@ -1,6 +1,9 @@
 const axios = require('axios');
 const path = require('path');
 const fs = require('fs');
+const unzipper = require('unzipper');
+const rimraf = require('rimraf');
+
 
 class NeDownload{
   constructor(outputDir, define){
@@ -28,12 +31,16 @@ class NeDownload{
       axios.get(url, {responseType: 'arraybuffer'}).then(response => {
         const filename = path.basename(url);
         const filepath = path.join(output, filename);
-        if (fs.existsSync(filepath)){
-          resolve(filepath);
-        }else{
+        if (!fs.existsSync(filepath)){
           fs.writeFileSync(filepath, response.data);
-          resolve(filepath);
         }
+        const shp_file = filepath.replace(/.zip/g, '');
+        if (fs.existsSync(shp_file)) {
+          rimraf.sync(shp_file);
+        }
+        fs.createReadStream(filepath).pipe(unzipper.Extract({ path: shp_file }));
+        resolve(`${shp_file}/${path.basename(shp_file)}.shp`);
+
       }).catch(err=>{reject(err)});
     })
   }

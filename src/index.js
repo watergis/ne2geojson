@@ -1,6 +1,8 @@
 const { program, Option } = require('commander');
 const path = require('path');
 const NeDownload = require('./download');
+const Shp2GeoJSON = require('./shp2geojson');
+
 
 const download = async(output, definition) => {
   if (!output){
@@ -17,15 +19,39 @@ const download = async(output, definition) => {
   process.stdout.write(files.join(' '));
 }
 
+const convert = async() => {
+  process.stdin.on('data', function (chunk) {
+    const data = chunk.toString();
+    data.split(' ').forEach(shp => {
+      const converter = new Shp2GeoJSON();
+      converter.convert(shp).then(geojson => {
+        geojson.features.forEach(f => {
+          process.stdout.write(JSON.stringify(f)+ '\n');
+        })
+      });
+    })
+  });
+  process.stdin.on('end', ()=>{});
+}
+
 // see about commander.js
 // https://github.com/tj/commander.js/
-const main = async() => {
+const main = async () => {
+  
   program
-    .version('0.0.1')
+    .version('0.0.1');
+  
+  program
     .command('download [output] [definition]')
     .description('It is a CLI tool which can download shapefile from Natural Earth')
     .action(async (output, definition, options) => {
       await download(output, definition)
+    });
+  program
+    .command('convert')
+    .description('It is a CLI tool which can convert Shapefile to GeoJSON')
+    .action(async () => {
+      await convert();
     })
   program.parse(process.argv);
 }

@@ -46,3 +46,15 @@ or
 ```bash
 node src/index.js download $(pwd)/data $(pwd)/define.json
 ```
+
+### Convert Shapefile to GeoJSON
+
+```
+node src/index.js convert $(pwd)/data/ne_110m_ocean/ne_110m_ocean.shp
+```
+
+### Pipeline
+
+```
+node src/index.js download $(pwd)/data $(pwd)/define.json | node src/index.js convert > test.geojson
+```

@@ -55,6 +55,12 @@ node src/index.js convert $(pwd)/data/ne_110m_ocean/ne_110m_ocean.shp
 
 ### Pipeline
 
+- Convert to GeoJSON
 ```
 node src/index.js download $(pwd)/data $(pwd)/define.json | node src/index.js convert > test.geojson
+```
+
+- Convert to mbtiles through tippecanoe
+```
+node src/index.js download $(pwd)/data $(pwd)/define.json | node src/index.js convert | tippecanoe --no-feature-limit --no-tile-size-limit --force --simplification=2 --maximum-zoom=5 --base-zoom=5 --hilbert --output=tiles.mbtiles
 ```

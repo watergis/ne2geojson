@@ -28,20 +28,25 @@ class NeDownload{
 
   download_shp(url, output){
     return new Promise((resolve, reject)=>{
-      axios.get(url, {responseType: 'arraybuffer'}).then(response => {
-        const filename = path.basename(url);
-        const filepath = path.join(output, filename);
-        if (!fs.existsSync(filepath)){
+      const filename = path.basename(url);
+      const filepath = path.join(output, filename);
+      const shp_dir = filepath.replace(/.zip/g, '');
+      const shp_file = `${shp_dir}/${path.basename(shp_dir)}.shp`;
+      if (fs.existsSync(filepath)){
+        if (!fs.existsSync(shp_dir)){
+          fs.createReadStream(filepath).pipe(unzipper.Extract({ path: shp_dir }));
+        }
+        resolve(shp_file);
+      }else{
+        axios.get(url, {responseType: 'arraybuffer'}).then(response => {
           fs.writeFileSync(filepath, response.data);
-        }
-        const shp_file = filepath.replace(/.zip/g, '');
-        if (fs.existsSync(shp_file)) {
-          rimraf.sync(shp_file);
-        }
-        fs.createReadStream(filepath).pipe(unzipper.Extract({ path: shp_file }));
-        resolve(`${shp_file}/${path.basename(shp_file)}.shp`);
-
-      }).catch(err=>{reject(err)});
+          if (!fs.existsSync(shp_dir)) {
+            fs.createReadStream(filepath).pipe(unzipper.Extract({ path: shp_dir }));
+          }
+          resolve(shp_file);
+  
+        }).catch(err=>{reject(err)});
+      }
     })
   }
 }

@@ -10,6 +10,7 @@
   "author": "Jin IGARASHI",
   "license": "MIT",
   "dependencies": {
+    "@mapbox/geojson-area": "^0.2.2",
     "axios": "^0.21.1",
     "commander": "^7.0.0",
     "fs": "0.0.1-security",

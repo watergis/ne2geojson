@@ -1,0 +1,154 @@
+{
+  "center": [
+    174.786987,
+    -41.31495
+  ],
+  "glyphs": "https://watergis.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "background",
+      "paint": {
+        "background-color": [
+          "rgb",
+          245,
+          245,
+          245
+        ]
+      },
+      "type": "background"
+    },
+    {
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "id": "ne-pg-ocean",
+      "paint": {
+        "fill-color": [
+          "rgb",
+          93,
+          170,
+          198
+        ]
+      },
+      "source": "ne",
+      "source-layer": "ocean",
+      "type": "fill"
+    },
+    {
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString"
+        ],
+        true,
+        false
+      ],
+      "id": "ne-ls-coastline",
+      "paint": {
+        "line-color": [
+          "rgb",
+          20,
+          90,
+          255
+        ]
+      },
+      "source": "ne",
+      "source-layer": "coastline",
+      "type": "line"
+    },
+    {
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "id": "ne-pg-water",
+      "paint": {
+        "fill-color": [
+          "rgb",
+          187,
+          222,
+          251
+        ]
+      },
+      "source": "ne",
+      "source-layer": "water",
+      "type": "fill"
+    },
+    {
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString"
+        ],
+        true,
+        false
+      ],
+      "id": "ne-ls-water",
+      "paint": {
+        "line-color": [
+          "rgb",
+          187,
+          222,
+          251
+        ]
+      },
+      "source": "ne",
+      "source-layer": "water",
+      "type": "line"
+    },
+    {
+      "id": "ne-ls-administrative",
+      "paint": {
+        "line-color": [
+          "rgb",
+          92,
+          99,
+          102
+        ],
+        "line-width": 1
+      },
+      "source": "ne",
+      "source-layer": "administrative",
+      "type": "line"
+    }
+  ],
+  "site_root": "https://watergis.github.io/ne2geojson",
+  "sources": {
+    "ne": {
+      "attribution": "OpenStreetMap contributors, <img src='https://unopengis.github.io/watermark/watermark.png'>",
+      "maxzoom": 7,
+      "tiles": [
+        "https://watergis.github.io/ne2geojson/zxy/{z}/{x}/{y}.pbf"
+      ],
+      "type": "vector"
+    }
+  },
+  "sprite": "https://watergis.github.io/ne2geojson/sprite/sprite",
+  "version": 8,
+  "zoom": 11
+}

@@ -24,11 +24,7 @@ const convert = async() => {
     const data = chunk.toString();
     data.split(' ').forEach(shp => {
       const converter = new Shp2GeoJSON();
-      converter.convert(shp).then(features => {
-        features.forEach(f => {
-          process.stdout.write(`\x1e${JSON.stringify(f)}\n`);
-        })
-      });
+      converter.convert(shp);
     })
   });
   process.stdin.on('end', ()=>{});

@@ -14,16 +14,17 @@ class Shp2GeoJSON{
                 encoding: "utf-8"
               })
             .then(geojson => {
-                const features = [];
+                // const features = [];
                 geojson.features.forEach(f => {
                     f.file = fileName
                     let _f = modify(f)
                     if (_f){
-                        features.push(_f);
+                        process.stdout.write(`\x1e${JSON.stringify(_f)}\n`);
+                        // features.push(_f);
                     }
                 })
                 // console.log(`\x1e${JSON.stringify(features)}\n`)
-                resolve(features);
+                resolve();
             })
             .catch(err => reject);
         })

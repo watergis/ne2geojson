@@ -20,8 +20,31 @@ module.exports = (f) => {
     f.properties.hasOwnProperty('name_ar') ||
     f.properties.hasOwnProperty('name_ja') ||
     f.properties.hasOwnProperty('name_ko') ||
-    f.properties.hasOwnProperty('name_zh')
+    f.properties.hasOwnProperty('name_zh') ||
+    f.properties.hasOwnProperty('name')
   ) {
+    let name;
+    if ('name_en' in f.properties){
+      name = f.properties['name_en']
+    }else if ('name_fr' in f.properties){
+      name = f.properties['name_fr']
+    }else if ('name_es' in f.properties){
+      name = f.properties['name_es']
+    }else if ('name_pt' in f.properties){
+      name = f.properties['name_pt']
+    }else if ('name_ar' in f.properties){
+      name = f.properties['name_ar']
+    }else if ('name_ja' in f.properties){
+      name = f.properties['name_ja']
+    }else if ('name_ko' in f.properties){
+      name = f.properties['name_ko']
+    }else if ('name_zh' in f.properties){
+      name = f.properties['name_zh']
+    }else if ('name' in f.properties){
+      name = f.properties['name']
+    }
+    f.properties['name'] = name;
+
     for (const key in f.properties) {
       if (key.match(/name_/)) {
         if (![
@@ -45,14 +68,13 @@ module.exports = (f) => {
     country(f) ||
     province(f) ||
     land(f) ||
+    snow(f) ||
     water(f) ||
     boundary(f) ||
     populated_area(f) ||
     place(f) ||
     urban_area(f) ||
-    playas(f) ||
-    glaciated_areas(f);
-  // if (f)console.log(`\x1e${JSON.stringify(f)}\n`)
+    playas(f);
   return f
 }
 
@@ -151,7 +173,7 @@ const land = (f)=>{
     'ne_10m_land',
     'ne_10m_minor_islands'
   ].includes(f.file)){
-    f.tippecanoe.layer = 'land'
+    f.tippecanoe.layer = 'land';
     return f;
   }
   return null;
@@ -243,13 +265,13 @@ const playas = (f)=>{
   return null;
 }
 
-const glaciated_areas = (f)=>{
+const snow = (f)=>{
   if ([
     'ne_110m_glaciated_areas',
     'ne_50m_glaciated_areas',
     'ne_10m_glaciated_areas'
   ].includes(f.file)){
-    f.tippecanoe.layer = 'glaciated_areas'
+    f.tippecanoe.layer = 'snow'
     return f;
   }
   return null;

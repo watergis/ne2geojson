@@ -240,17 +240,18 @@ const place = (f)=>{
     f.tippecanoe.layer = 'place';
     f.properties.place = 'mountains';
     return f;
-  }else if ([
-    'ne_110m_populated_places',
-    'ne_50m_populated_places',
-    'ne_10m_populated_places'
-  ].includes(f.file)){
-    f.tippecanoe.layer = 'place';
-    let minzoom = 3;
-    if (minzoom > f.tippecanoe.maxzoom){
-      minzoom = f.tippecanoe.maxzoom;
+  }else if (f.file.indexOf('populated_places') > -1){
+    if (f.file.indexOf('110m') > -1){
+      f.tippecanoe.minzoom = 3;
+      f.tippecanoe.maxzoom = 3;
+    }else if (f.file.indexOf('50m') > -1){
+      f.tippecanoe.minzoom = 4;
+      f.tippecanoe.maxzoom = 4;
+    }else if (f.file.indexOf('10m') > -1){
+      f.tippecanoe.minzoom = 5;
+      f.tippecanoe.maxzoom = 7;
     }
-    f.tippecanoe.minzoom = minzoom;
+    f.tippecanoe.layer = 'place';
     f.properties.place = 'city';
     return f;
   }

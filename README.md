@@ -118,10 +118,17 @@ You can use this module together with `unvt/naru`.
 
 ## Development
 
-- Build mbtiles
+### Build one stop
 
 ```
 npm run build
+```
+
+### Build seperately
+- Build mbtiles
+
+```
+npm run tiles
 ```
 
 - Extract pbf under `docs/zxy`

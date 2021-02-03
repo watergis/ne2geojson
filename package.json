@@ -4,12 +4,17 @@
   "description": "This is a simple module to download shapefile from Natural Earth and convert them to GeoJSON in order to use for UNVT.",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node src/index.js download $(pwd)/data $(pwd)/define.json | node src/index.js convert | tippecanoe --no-feature-limit --no-tile-size-limit --force --simplification=2 --maximum-zoom=7 --base-zoom=7 --hilbert --output=tiles.mbtiles",
+    "extract": "tile-join --force --no-tile-compression --output-to-directory=docs/zxy --no-tile-size-limit tiles.mbtiles",
+    "style": "parse-hocon hocon/style.conf > docs/style.json && gl-style-validate docs/style.json",
+    "deploy": "gh-pages -d docs"
   },
   "author": "Jin IGARASHI",
   "license": "MIT",
   "dependencies": {
-    "@mapbox/geojson-area": "^0.2.2",
+    "@mapbox/mapbox-gl-style-spec": "^13.18.1",
+    "@pushcorn/hocon-parser": "^1.1.9",
     "axios": "^0.21.1",
     "commander": "^7.0.0",
     "fs": "0.0.1-security",
@@ -17,5 +22,8 @@
     "rimraf": "^3.0.2",
     "shapefile": "^0.6.6",
     "unzipper": "^0.10.11"
+  },
+  "devDependencies": {
+    "gh-pages": "^3.1.0"
   }
 }

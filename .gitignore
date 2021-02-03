@@ -2,6 +2,8 @@ data/
 .DS_Store
 *.geojson
 *.mbtiles
+docs/style.json
+docs/zxy
 
 # Logs
 logs

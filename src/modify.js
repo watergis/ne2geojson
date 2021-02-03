@@ -1,5 +1,3 @@
-const geojsonArea = require('@mapbox/geojson-area')
-
 module.exports = (f) => {
   if (!f.geometry)return null;
 

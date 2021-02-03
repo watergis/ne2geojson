@@ -116,6 +116,32 @@ node src/index.js download $(pwd)/data $(pwd)/define.json | node src/index.js co
 
 You can use this module together with `unvt/naru`.
 
+## Development
+
+- Build mbtiles
+
+```
+npm run build
+```
+
+- Extract pbf under `docs/zxy`
+
+```
+npm run extract
+```
+
+- Build style.json
+
+```
+npm run style
+```
+
+- Deploy to gh-pages
+
+```
+npm run deploy
+```
+
 ## License
 
 This source code is under `MIT license`.

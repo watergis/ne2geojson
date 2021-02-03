@@ -34,9 +34,9 @@
       "paint": {
         "fill-color": [
           "rgb",
-          93,
-          170,
-          198
+          117,
+          207,
+          240
         ]
       },
       "source": "ne",
@@ -61,9 +61,10 @@
         "line-color": [
           "rgb",
           20,
-          90,
+          150,
           255
-        ]
+        ],
+        "line-width": 1
       },
       "source": "ne",
       "source-layer": "coastline",
@@ -122,6 +123,98 @@
       "type": "line"
     },
     {
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "id": "ne-pg-land",
+      "paint": {
+        "fill-color": [
+          "rgb",
+          212,
+          225,
+          188
+        ],
+        "fill-opacity": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          2,
+          0.3,
+          7,
+          0
+        ]
+      },
+      "source": "ne",
+      "source-layer": "land",
+      "type": "fill"
+    },
+    {
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "id": "ne-pg-snow",
+      "paint": {
+        "fill-color": [
+          "rgb",
+          255,
+          255,
+          255
+        ],
+        "fill-opacity": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          2,
+          0.3,
+          7,
+          0
+        ]
+      },
+      "source": "ne",
+      "source-layer": "snow",
+      "type": "fill"
+    },
+    {
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
       "id": "ne-ls-country",
       "paint": {
         "line-color": [
@@ -141,7 +234,7 @@
       "layout": {
         "text-field": [
           "get",
-          "name_en"
+          "name"
         ],
         "text-font": [
           "Roboto Regular"
@@ -166,13 +259,81 @@
       "source": "ne",
       "source-layer": "country",
       "type": "symbol"
+    },
+    {
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "id": "ne-pt-place",
+      "layout": {
+        "icon-image": [
+          "match",
+          [
+            "get",
+            "place"
+          ],
+          "airports",
+          "airport",
+          "ports",
+          "ferry_terminal",
+          "mountains",
+          "refugee",
+          "city",
+          "national_capital",
+          "default"
+        ],
+        "icon-size": 1,
+        "text-field": [
+          "get",
+          "name"
+        ],
+        "text-font": [
+          "Roboto Regular"
+        ],
+        "text-justify": "auto",
+        "text-radial-offset": 1,
+        "text-size": 10,
+        "text-variable-anchor": [
+          "top",
+          "bottom",
+          "left",
+          "right"
+        ]
+      },
+      "paint": {
+        "text-color": [
+          "rgb",
+          0,
+          0,
+          0
+        ],
+        "text-halo-color": [
+          "rgb",
+          238,
+          238,
+          238
+        ],
+        "text-halo-width": 1
+      },
+      "source": "ne",
+      "source-layer": "place",
+      "type": "symbol"
     }
   ],
   "site_root": "https://watergis.github.io/ne2geojson",
   "sources": {
     "ne": {
       "attribution": "OpenStreetMap contributors, <img src='https://unopengis.github.io/watermark/watermark.png'>",
-      "maxzoom": 7,
+      "maxzoom": 5,
       "tiles": [
         "https://watergis.github.io/ne2geojson/zxy/{z}/{x}/{y}.pbf"
       ],

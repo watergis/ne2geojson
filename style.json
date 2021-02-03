@@ -1,7 +1,7 @@
 {
   "center": [
-    174.786987,
-    -41.31495
+    0,
+    0
   ],
   "glyphs": "https://watergis.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf",
   "layers": [
@@ -150,5 +150,5 @@
   },
   "sprite": "https://watergis.github.io/ne2geojson/sprite/sprite",
   "version": 8,
-  "zoom": 11
+  "zoom": 2
 }

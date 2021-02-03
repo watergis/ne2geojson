@@ -71,7 +71,6 @@ module.exports = (f) => {
     snow(f) ||
     water(f) ||
     boundary(f) ||
-    populated_area(f) ||
     place(f) ||
     urban_area(f) ||
     playas(f);
@@ -209,17 +208,6 @@ const water = (f)=>{
   return null;
 }
 
-const populated_area = (f)=>{
-  if ([
-    'ne_50m_populated_places',
-    'ne_50m_populated_places_simple',
-  ].includes(f.file)){
-    f.tippecanoe.layer = 'populated_area'
-    return f;
-  }
-  return null;
-}
-
 const place = (f)=>{
   if (f.geometry.type !== 'Point') return null
   if ([
@@ -252,8 +240,20 @@ const place = (f)=>{
     f.tippecanoe.layer = 'place';
     f.properties.place = 'mountains';
     return f;
+  }else if ([
+    'ne_110m_populated_places',
+    'ne_50m_populated_places',
+    'ne_10m_populated_places'
+  ].includes(f.file)){
+    f.tippecanoe.layer = 'place';
+    let minzoom = 3;
+    if (minzoom > f.tippecanoe.maxzoom){
+      minzoom = f.tippecanoe.maxzoom;
+    }
+    f.tippecanoe.minzoom = minzoom;
+    f.properties.place = 'city';
+    return f;
   }
-
   
   return null;
 }

@@ -200,11 +200,8 @@ const water = (f)=>{
     'ne_110m_lakes',
     'ne_50m_rivers_lake_centerlines',
     'ne_50m_lakes',
-    'ne_50m_lakes_historic',
     'ne_10m_rivers_lake_centerlines',
     'ne_10m_lakes',
-    'ne_10m_lakes_historic',
-    'ne_10m_lakes_pluvial',
   ].includes(f.file)){
     f.tippecanoe.layer = 'water'
     return f;
@@ -239,7 +236,25 @@ const place = (f)=>{
     f.tippecanoe.layer = 'place';
     f.properties.place = 'ports';
     return f;
+  }else if ([
+    'ne_110m_geography_regions_points',
+    'ne_50m_geography_regions_points',
+    'ne_10m_geography_regions_points'
+  ].includes(f.file)){
+    f.tippecanoe.layer = 'place';
+    f.properties.place = 'regions';
+    return f;
+  }else if ([
+    'ne_110m_geography_regions_elevation_points',
+    'ne_50m_geography_regions_elevation_points',
+    'ne_10m_geography_regions_elevation_points'
+  ].includes(f.file)){
+    f.tippecanoe.layer = 'place';
+    f.properties.place = 'mountains';
+    return f;
   }
+
+  
   return null;
 }
 

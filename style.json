@@ -122,7 +122,7 @@
       "type": "line"
     },
     {
-      "id": "ne-ls-administrative",
+      "id": "ne-ls-country",
       "paint": {
         "line-color": [
           "rgb",
@@ -133,8 +133,39 @@
         "line-width": 1
       },
       "source": "ne",
-      "source-layer": "administrative",
+      "source-layer": "country",
       "type": "line"
+    },
+    {
+      "id": "ne-pt-country",
+      "layout": {
+        "text-field": [
+          "get",
+          "name_en"
+        ],
+        "text-font": [
+          "Roboto Regular"
+        ],
+        "text-size": 13
+      },
+      "paint": {
+        "text-color": [
+          "rgb",
+          0,
+          0,
+          0
+        ],
+        "text-halo-color": [
+          "rgb",
+          238,
+          238,
+          238
+        ],
+        "text-halo-width": 1
+      },
+      "source": "ne",
+      "source-layer": "country",
+      "type": "symbol"
     }
   ],
   "site_root": "https://watergis.github.io/ne2geojson",

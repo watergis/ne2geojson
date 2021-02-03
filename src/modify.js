@@ -42,7 +42,8 @@ module.exports = (f) => {
 
   f = ocean(f) ||
     coastline(f) ||
-    administrative(f) ||
+    country(f) ||
+    province(f) ||
     land(f) ||
     water(f) ||
     boundary(f) ||
@@ -113,7 +114,7 @@ const coastline = (f)=>{
   return null;
 }
 
-const administrative = (f)=>{
+const country = (f)=>{
   if ([
     'ne_110m_admin_0_countries',
     'ne_110m_admin_0_countries_lakes',
@@ -121,6 +122,15 @@ const administrative = (f)=>{
     'ne_50m_admin_0_countries_lakes',
     'ne_10m_admin_0_countries',
     'ne_10m_admin_0_countries_lakes',
+  ].includes(f.file)){
+    f.tippecanoe.layer = 'country'
+    return f;
+  }
+  return null;
+}
+
+const province = (f)=>{
+  if ([
     'ne_110m_admin_1_states_provinces',
     'ne_110m_admin_1_states_provinces_lakes',
     'ne_50m_admin_1_states_provinces',
@@ -128,7 +138,7 @@ const administrative = (f)=>{
     'ne_10m_admin_1_states_provinces',
     'ne_10m_admin_1_states_provinces_lakes',
   ].includes(f.file)){
-    f.tippecanoe.layer = 'administrative'
+    f.tippecanoe.layer = 'province'
     return f;
   }
   return null;

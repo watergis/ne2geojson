@@ -1,8 +1,5 @@
 [
   ["110m", "cultural", "ne_110m_admin_0_countries_lakes"],
-  ["110m", "cultural", "ne_110m_admin_0_tiny_countries"],
-  ["110m", "cultural", "ne_110m_admin_0_boundary_lines_land"],
-  ["110m", "cultural", "ne_110m_admin_1_states_provinces_lakes"],
   ["110m", "cultural", "ne_110m_populated_places"],
   ["110m", "physical", "ne_110m_coastline"],
   ["110m", "physical", "ne_110m_land"],
@@ -27,7 +24,6 @@
   ["50m", "physical", "ne_50m_playas"],
   ["50m", "physical", "ne_50m_glaciated_areas"],
   ["50m", "cultural", "ne_50m_admin_0_countries_lakes"],
-  ["50m", "cultural", "ne_50m_admin_1_states_provinces_lakes"],
   ["50m", "cultural", "ne_50m_populated_places"],
   ["50m", "cultural", "ne_50m_airports"],
   ["50m", "cultural", "ne_50m_ports"],
@@ -49,7 +45,6 @@
   ["10m", "physical", "ne_10m_playas"],
   ["10m", "physical", "ne_10m_glaciated_areas"],
   ["10m", "cultural", "ne_10m_admin_0_countries_lakes"],
-  ["10m", "cultural", "ne_10m_admin_1_states_provinces_lakes"],
   ["10m", "cultural", "ne_10m_airports"],
   ["10m", "cultural", "ne_10m_ports"],
   ["10m", "cultural", "ne_10m_urban_areas"]

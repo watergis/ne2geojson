@@ -332,7 +332,7 @@
   "site_root": "https://watergis.github.io/ne2geojson",
   "sources": {
     "ne": {
-      "attribution": "OpenStreetMap contributors, <img src='https://unopengis.github.io/watermark/watermark.png'>",
+      "attribution": "©Natural Earth., <img src='https://unopengis.github.io/watermark/watermark.png'>",
       "maxzoom": 5,
       "tiles": [
         "https://watergis.github.io/ne2geojson/zxy/{z}/{x}/{y}.pbf"

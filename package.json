@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "This is a simple module to download shapefile from Natural Earth and convert them to GeoJSON in order to use for UNVT.",
   "main": "src/index.js",
+  "files": [
+    "src",
+    "config"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:tiles": "node src/index.js download $(pwd)/data $(pwd)/config/config.json | node src/index.js convert | tippecanoe --no-feature-limit --no-tile-size-limit --force --simplification=2 --maximum-zoom=5 --base-zoom=5 --hilbert --output=tiles.mbtiles",
@@ -10,8 +14,22 @@
     "dev:style": "parse-hocon hocon/style.conf > docs/style.json && gl-style-validate docs/style.json",
     "dev:deploy": "gh-pages -d docs"
   },
+  "keywords": [
+    "unvt",
+    "natural-earth",
+    "shapefile",
+    "geojson"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/watergis/ne2geojson.git"
+  },
   "author": "Jin IGARASHI",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/watergis/ne2geojson/issues"
+  },
+  "homepage": "https://github.com/watergis/ne2geojson#readme",
   "dependencies": {
     "@turf/turf": "^6.3.0",
     "axios": "^0.21.1",

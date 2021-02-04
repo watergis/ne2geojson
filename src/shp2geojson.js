@@ -18,7 +18,13 @@ class Shp2GeoJSON{
                     f.file = fileName
                     let _f = modify(f)   
                     if (!_f) return;
-                    process.stdout.write(`\x1e${JSON.stringify(_f)}\n`);
+                    if (Array.isArray(_f)){
+                        _f.forEach(data=>{
+                            process.stdout.write(`\x1e${JSON.stringify(data)}\n`);
+                        })
+                    }else{
+                        process.stdout.write(`\x1e${JSON.stringify(_f)}\n`);
+                    }
                 })
                 resolve();
             })

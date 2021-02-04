@@ -1,3 +1,7 @@
+const deepcopy = require('deepcopy');
+const turf = require('@turf/turf');
+
+
 module.exports = (f) => {
   if (!f.geometry)return null;
 
@@ -145,9 +149,53 @@ const country = (f)=>{
     'ne_10m_admin_0_countries_lakes',
   ].includes(f.file)){
     f.tippecanoe.layer = 'country'
-    return f;
+    
+    let features = [f];
+    const centroid = contry_annotation(f);
+    if (centroid) features.push(centroid);
+    return features;
   }
   return null;
+}
+
+const contry_annotation = (org) =>{
+  let f = deepcopy(org);
+  let centroid;
+  switch (f.geometry.type){
+    case 'Polygon':
+      centroid = turf.centroid(f);
+      break;
+    case 'MultiPolygon':
+      let largest_polygon;
+      let largest_area;
+      f.geometry.coordinates.forEach(c1=>{
+        let poly = turf.polygon(c1)
+        console.log(JSON.stringify(poly))
+        let current_area = turf.area(poly);
+        console.log(current_area)
+        if (!largest_polygon){
+          largest_polygon = poly
+          largest_area = current_area
+        }else{
+          if (current_area > largest_area){
+            largest_polygon = poly
+            largest_area = current_area
+          }
+        }
+      })
+      centroid = turf.centroid(largest_polygon);
+      break;
+    default:
+      break;
+  }
+  if (!centroid){
+    return null;
+  }
+  f.geometry = centroid.geometry;
+  f.tippecanoe = deepcopy(org.tippecanoe);
+  f.tippecanoe.layer = 'country_annotation';
+  f.properties = deepcopy(org.properties)
+  return f
 }
 
 const province = (f)=>{

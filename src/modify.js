@@ -67,6 +67,13 @@ module.exports = (f) => {
     }
   }
 
+  // delete properties except name columns
+  Object.keys(f.properties).forEach(k=>{
+    if (!k.match(/name/)) {
+      delete f.properties[k];
+    }
+  })
+
   f = ocean(f) ||
     coastline(f) ||
     country(f) ||

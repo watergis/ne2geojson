@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run tiles && npm run extract && npm run style",
-    "tiles": "node src/index.js download $(pwd)/data $(pwd)/define.json | node src/index.js convert | tippecanoe --no-feature-limit --no-tile-size-limit --force --simplification=2 --maximum-zoom=5 --base-zoom=5 --hilbert --output=tiles.mbtiles",
+    "tiles": "node src/index.js download $(pwd)/data $(pwd)/config/config.json | node src/index.js convert | tippecanoe --no-feature-limit --no-tile-size-limit --force --simplification=2 --maximum-zoom=5 --base-zoom=5 --hilbert --output=tiles.mbtiles",
     "extract": "tile-join --force --no-tile-compression --output-to-directory=docs/zxy --no-tile-size-limit tiles.mbtiles",
     "style": "parse-hocon hocon/style.conf > docs/style.json && gl-style-validate docs/style.json",
     "deploy": "gh-pages -d docs"

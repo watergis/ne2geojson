@@ -79,7 +79,7 @@ npm i
 
 Please specify which data from Natural Earth you need.
 
-You can delete unnecessary data from `define_all.json`.
+You can delete unnecessary data from `config/config_all.json`.
 
 ### How to generate
 
@@ -100,18 +100,18 @@ Commands:
 #### Download Shapefile from Natural Earth
 
 ```bash
-node src/index.js download $(pwd)/data $(pwd)/define.json
+node src/index.js download $(pwd)/data $(pwd)/config/config.json
 ```
 
 #### Convert to GeoJSON
 
 ```bash
-node src/index.js download $(pwd)/data $(pwd)/define.json | node src/index.js convert > test.geojson
+node src/index.js download $(pwd)/data $(pwd)/config/config.json | node src/index.js convert > test.geojson
 ```
 
 #### Convert to mbtiles through tippecanoe
 ```
-node src/index.js download $(pwd)/data $(pwd)/define.json | node src/index.js convert | tippecanoe --no-feature-limit --no-tile-size-limit --force --simplification=2 --maximum-zoom=5 --base-zoom=5 --hilbert --output=tiles.mbtiles
+node src/index.js download $(pwd)/data $(pwd)/config/config.json | node src/index.js convert | tippecanoe --no-feature-limit --no-tile-size-limit --force --simplification=2 --maximum-zoom=5 --base-zoom=5 --hilbert --output=tiles.mbtiles
 ```
 
 You can use this module together with `unvt/naru`.
